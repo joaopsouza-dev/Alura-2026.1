@@ -1,5 +1,6 @@
 package com.alura.ScreenMatch2;
 
+import com.alura.ScreenMatch2.model.DadosEpisodio;
 import com.alura.ScreenMatch2.model.DadosSerie;
 import com.alura.ScreenMatch2.service.ConsumoApi;
 import com.alura.ScreenMatch2.service.ConverteDados;
@@ -22,13 +23,17 @@ public class ScreenMatch2Application implements CommandLineRunner { // SEMPRE IM
 		var consumoApi = new ConsumoApi();
 		//COLOCANDO A REF DA API DO OMDB PARA TESTAR
 		var json = consumoApi.obterDados("https://www.omdbapi.com/?t=gilmore+girls&apikey=68b46e45");
-		//System.out.println(json);
 
 		ConverteDados converte = new ConverteDados(); // CONVERSOR DE DADOS
 
 		//CONVERTE DE VERDADE OS DADOS DA SERIE DISPONIBILIZADA COM A API
 		DadosSerie dados = converte.obterDados(json, DadosSerie.class);
 		System.out.println(dados);
+
+		//CONVERTE DE VERDADE OS DADOS DA SERIE DISPONIBILIZADA COM A API
+		json = consumoApi.obterDados("https://www.omdbapi.com/?t=gilmore+girls&season=1&episode=2&apikey=68b46e45");
+		DadosEpisodio dadosEP = converte.obterDados(json, DadosEpisodio.class);
+		System.out.println(dadosEP);
 	}
 
 }
